@@ -9,6 +9,7 @@ import sys
 import time
 import os
 import pictureutil
+from PIL import Image
 
 
 filelist = []
@@ -40,15 +41,13 @@ def save_url(driver, url, dir):
     
     
 def package_picture(dir, save_path, pic_name):
-    
-    
-    list = os.listdir(dir)
-    list.sort()
     pic_dir = dir
     pic_list = os.listdir(pic_dir)
-    pic_list.sort()
+    sort_list = []
+    for i in range(len(pic_list)):
+        sort_list.append(str(i) + '.png')
     save_file = os.path.join(save_path, pic_name + '.png')
-    pictureutil.merge_pic(pic_dir, pic_list, os.path.abspath(save_file))
+    pictureutil.merge_pic(pic_dir, sort_list, os.path.abspath(save_file))
 
 def init_filelist():
     f = open('./test.txt', 'r')

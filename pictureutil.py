@@ -11,19 +11,22 @@ def merge_pic(dir, pic_list, save_file):
 
 
 def merge_pic_files(files, save_file):
-    from PIL import Image
-    import numpy as np
-    baseimg=Image.open(files[0])
-    sz = baseimg.size
-    basemat=np.atleast_2d(baseimg)
-    for file in files[1:]:
-        im=Image.open(file)
-    #resize to same width
-        sz2 = im.size
-        if sz2!=sz:
-            im=im.resize((sz[0],round(sz2[0] / sz[0] * sz2[1])),Image.ANTIALIAS)
-        mat=np.atleast_2d(im)
-        basemat=np.append(basemat,mat,axis=0)
-    report_img=Image.fromarray(basemat)
+    ims = []
+    width = 0
+    height = 0
+    for item in files:
+        img = Image.open(item)
+        ims.append(img)
+        if width != 0:
+            width = ims.size[0]
+        height = height + img.size[1]
 
-    report_img.save(save_file)
+    result = Image.new(ims[0].mode, (width, height))
+    now_height_begin = 0
+    
+    for i, im in enumerate(ims):
+        now_height_end = now_height_begin + im.size[1]
+        result.paste(im, box=(now_height_begin, now_height_end))
+        now_height_begin = now_height_end
+    result.save(save_file)
+
