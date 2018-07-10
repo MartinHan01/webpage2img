@@ -27,13 +27,22 @@ def save_url(driver, url, dir):
     
 
     all_height = driver.execute_script("return document.body.scrollHeight")
+    width = driver.execute_script("return window.innerWidth")
     screen_height = driver.execute_script("return window.innerHeight")
     num = int(all_height / (screen_height))
+    last_height = all_height % screen_height
+    if last_height != 0:
+        num = num + 1
+
 
     for i in range(0, num):
-        time.sleep(1)
+        time.sleep(0.5)
         pic_name = str(i) + '.png'
         driver.save_screenshot(os.path.join(pic_path,pic_name))
+        if i == num - 1:
+            img = Image.open(os.path.join(pic_path,pic_name))
+            region = img.crop((0, screen_height - last_height, width , screen_height))
+            region.save(os.path.join(pic_path,pic_name))
         height = screen_height * (i + 1)
         js = "window.scrollTo(0,%d)" % (height)
         driver.execute_script(js)
