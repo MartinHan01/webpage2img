@@ -36,7 +36,7 @@ def save_url(driver, url, dir):
 
 
     for i in range(0, num):
-        time.sleep(0.5)
+        time.sleep(0.8)
         pic_name = str(i) + '.png'
         driver.save_screenshot(os.path.join(pic_path,pic_name))
         if i == num - 1:
