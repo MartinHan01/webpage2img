@@ -1,3 +1,6 @@
 *.pyc
 /result
 debug.log
+output
+image
+image.zip
