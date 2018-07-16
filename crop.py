@@ -153,4 +153,4 @@ if __name__ == '__main__':
     namelistzip = listfiles(outpdffilepath, "pdf")
     for name in namelistzip:
         print(name)
-        zipfiles(name)
+        #zipfiles(name)

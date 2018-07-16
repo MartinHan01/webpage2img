@@ -24,8 +24,6 @@ def save_url(driver, url, dir):
     pic_path = os.path.join(dir, title)
     fileutil.mkdirs_if_not_exist(pic_path)
 
-    
-
     all_height = driver.execute_script("return document.body.scrollHeight")
     width = driver.execute_script("return window.innerWidth")
     screen_height = driver.execute_script("return window.innerHeight")
